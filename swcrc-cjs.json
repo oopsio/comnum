@@ -1,0 +1,13 @@
+{
+  "jsc": {
+    "minify": {
+      "compress": true,
+      "mangle": true
+    },
+    "target": "es2015"
+  },
+  "minify": true,
+  "module": {
+    "type": "commonjs"
+  }
+}

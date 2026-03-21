@@ -1,0 +1,45 @@
+{
+  "name": "comnumbers",
+  "version": "1.0.6",
+  "description": "A tiny, zero-dependency utility to convert human-readable time strings to milliseconds and back.",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "unpkg": "dist/index.umd.js",
+  "exports": {
+    "import": "./dist/index.esm.js",
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.umd.js"
+  },
+  "type": "module",
+  "files": [
+    "dist/index.cjs",
+    "dist/index.esm.js",
+    "dist/index.umd.js",
+    "README.md"
+  ],
+  "scripts": {
+    "build:esm": "swc src/index.js -o dist/index.esm.js --config-file swcrc-esm.json",
+    "build:cjs": "swc src/index.js -o dist/index.cjs.js --config-file swcrc-cjs.json",
+    "build:umd": "swc src/index.js -o dist/index.umd.js --config-file swcrc-umd.json",
+    "build": "bun run build:esm && bun run build:cjs && bun run build:umd",
+    "test": "node test.js",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "utility",
+    "numbers",
+    "time",
+    "ms",
+    "convert",
+    "humanize"
+  ],
+  "author": "oopsio",
+  "license": "MIT",
+  "devDependencies": {
+    "@swc/cli": "^0.8.0",
+    "@swc/core": "^1.15.18"
+  },
+  "trustedDependencies": [
+    "@swc/core"
+  ]
+}
