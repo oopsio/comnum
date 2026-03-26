@@ -39,7 +39,7 @@ export default function comnum(value) {
   if (typeof value === "number") {
     return Number.isFinite(value) ? value : null;
   }
-  
+
   // Guard against non-strings or massive "memory-bomb" strings (ReDoS protection)
   if (typeof value !== "string" || value.length > 100) {
     return null;

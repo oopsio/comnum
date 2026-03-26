@@ -1,12 +1,9 @@
 site_name: comnumbers
 site_url: https://oopsio.github.io/comnumbers
 repo_url: https://github.com/oopsio/comnumbers
-theme: 
- name: material
- palette:
-    
-    
-
+theme:
+  name: material
+  palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
       toggle:
@@ -15,7 +12,7 @@ theme:
 
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
-      scheme: default 
+      scheme: default
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
@@ -26,14 +23,13 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
- font: 
-  text: Geist
-  code: Geist Mono
+  font:
+    text: Geist
+    code: Geist Mono
 extra:
-  generator: false  
+  generator: false
 markdown_extensions:
   - pymdownx.highlight
   - pymdownx.superfences
 plugins:
-  - offline  
-   
+  - offline
