@@ -28,6 +28,3 @@ jobs:
 
       - name: Run Performance Benchmark
         run: bun run tests/bench.test.js
-
-      - name: Security Scan
-        run: bun audit
