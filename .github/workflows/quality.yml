@@ -1,0 +1,34 @@
+name: Quality Control
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Build Project
+        run: bun run build
+
+      - name: Verify Types
+        run: bunx tsc --project tsconfig.json --noEmit
+        # Note: You'll need a basic tsconfig.json for this to work perfectly
+
+      - name: Run Performance Benchmark
+        run: bun run tests/bench.test.js
+
+      - name: Security Scan
+        run: bun audit
