@@ -1,5 +1,7 @@
 # comnumber
 
+[![CodeQL Advanced](https://github.com/oopsio/comnum/actions/workflows/codeql.yml/badge.svg)](https://github.com/oopsio/comnum/actions/workflows/codeql.yml)
+
 **A tiny, zero-dependency utility to convert human-readable time strings to milliseconds and back.**
 
 comnumber is a high-performance, 1kb utility designed to solve the "small things" in the JavaScript ecosystem. It provides the essential glue for time calculations in frameworks like Jen.js.
