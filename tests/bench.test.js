@@ -7,11 +7,15 @@ const totalParses = iterations * 3;
 
 function runBench(name, parseFn) {
   if (typeof parseFn !== "function") {
-    console.error(`Error: ${name} is not a function! Type is: ${typeof parseFn}`);
+    console.error(
+      `Error: ${name} is not a function! Type is: ${typeof parseFn}`,
+    );
     return 0;
   }
 
-  console.log(`\n--- ${name} Benchmark (${totalParses.toLocaleString()} total parses) ---`);
+  console.log(
+    `\n--- ${name} Benchmark (${totalParses.toLocaleString()} total parses) ---`,
+  );
 
   // Warm-up
   for (let i = 0; i < 100_000; i++) {
@@ -31,7 +35,9 @@ function runBench(name, parseFn) {
 
   console.log(`Total time: ${totalTime.toFixed(2)}ms`);
   console.log(`Average: ${opTime.toFixed(2)}ns per parse`);
-  console.log(`Ops/sec: ${Math.round(totalParses / (totalTime / 1000)).toLocaleString()}`);
+  console.log(
+    `Ops/sec: ${Math.round(totalParses / (totalTime / 1000)).toLocaleString()}`,
+  );
 
   return opTime;
 }
