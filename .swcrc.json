@@ -1,0 +1,21 @@
+{
+  "jsc": {
+    "target": "es2015",
+    "minify": {
+      "compress": {
+        "unused": true,
+        "dead_code": true,
+        "toplevel": true,
+        "passes": 3
+      },
+      "mangle": {
+        "topLevel": true,
+        "reserved": ["parse", "humanize"]
+      }
+    }
+  },
+  "minify": true,
+  "module": {
+    "type": "umd"
+  }
+}

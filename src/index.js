@@ -1,9 +1,9 @@
 /**
  * Conversion factors from a given unit to milliseconds.
- * This makes it easy to multiply or divide when changing units.
- * * @constant {Object}
+ * Frozen to prevent accidental modification or prototype pollution.
+ * @constant {Object}
  */
-const factors = {
+const factors = Object.freeze({
   ms: 1,
   s: 1000,
   m: 60000,
@@ -11,13 +11,14 @@ const factors = {
   d: 86400000,
   w: 604800000,
   y: 31536000000,
-};
+});
 
 /**
  * Long names for time units used for the 'long' formatting option.
- * * @constant {Object}
+ * Frozen to keep the data secure.
+ * @constant {Object}
  */
-const longNames = {
+const longNames = Object.freeze({
   ms: "millisecond",
   s: "second",
   m: "minute",
@@ -25,18 +26,24 @@ const longNames = {
   d: "day",
   w: "week",
   y: "year",
-};
+});
 
 /**
  * Parses a string containing a number and a time unit into milliseconds.
  * If a regular number is passed, it returns the number as is.
- * * @param {string|number} value - The text to parse (e.g., "1h", "1.5d", "500ms").
- * @returns {number|null} The time in milliseconds, or null if the text is invalid.
+ * @param {string|number} value - The text to parse (e.g., "1h", "1.5d", "500ms").
+ * @returns {number|null} The time in milliseconds, or null if the text is invalid or unsafe.
  */
 export default function comnum(value) {
   // If it's already a number, make sure it's not a weird math bug like NaN or Infinity
-  if (typeof value === "number") return Number.isFinite(value) ? value : null;
-  if (typeof value !== "string") return null;
+  if (typeof value === "number") {
+    return Number.isFinite(value) ? value : null;
+  }
+  
+  // Guard against non-strings or massive "memory-bomb" strings (ReDoS protection)
+  if (typeof value !== "string" || value.length > 100) {
+    return null;
+  }
 
   // Clean up any accidental invisible spaces at the very beginning or end
   const cleanValue = value.trim();
@@ -52,12 +59,19 @@ export default function comnum(value) {
   const num = parseFloat(match[1]);
   const type = (match[2] || "ms").toLowerCase();
 
-  return num * factors[type];
+  // Get the factor securely
+  const factor = factors[type];
+  if (!factor) return null;
+
+  const result = num * factor;
+
+  // Final safety check: ensure the result doesn't blow up JavaScript's safe integer limit
+  return Math.abs(result) <= Number.MAX_SAFE_INTEGER ? result : null;
 }
 
 /**
  * Formats a given time in milliseconds into a friendly, human-readable string.
- * * @param {number} ms - The time in milliseconds to format.
+ * @param {number} ms - The time in milliseconds to format.
  * @param {Object} [options] - Optional settings for how to format the text.
  * @param {boolean} [options.round=false] - Whether to round to the nearest whole number.
  * @param {boolean} [options.long=false] - Whether to spell out the unit names completely.
