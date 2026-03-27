@@ -1,5 +1,5 @@
 // Point directly to your source file
-import comnum, { humanize } from "../src/index.js";
+import comnum from "../src/index.js";
 import ms from "ms";
 
 const iterations = 10_000_000;
