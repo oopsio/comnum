@@ -94,7 +94,8 @@ export function humanize(ms, options) {
   if (!Number.isFinite(ms)) return null;
 
   // Strict check to ensure options is an object, otherwise default to an empty object
-  const safeOptions = (typeof options === "object" && options !== null) ? options : {};
+  const safeOptions =
+    typeof options === "object" && options !== null ? options : {};
 
   const abs = Math.abs(ms);
   let val, unit;
@@ -103,37 +104,38 @@ export function humanize(ms, options) {
   // so if you ever change the factors, this math will still work perfectly!
   if (
     abs >= factors.y ||
-    (safeOptions.round && Math.round(abs / factors.m) >= (factors.y / factors.m))
+    (safeOptions.round && Math.round(abs / factors.m) >= factors.y / factors.m)
   ) {
     val = ms / factors.y;
     unit = "y";
   } else if (
     abs >= factors.w ||
-    (safeOptions.round && Math.round(abs / factors.d) >= (factors.w / factors.d))
+    (safeOptions.round && Math.round(abs / factors.d) >= factors.w / factors.d)
   ) {
     val = ms / factors.w;
     unit = "w";
   } else if (
     abs >= factors.d ||
-    (safeOptions.round && Math.round(abs / factors.h) >= (factors.d / factors.h))
+    (safeOptions.round && Math.round(abs / factors.h) >= factors.d / factors.h)
   ) {
     val = ms / factors.d;
     unit = "d";
   } else if (
     abs >= factors.h ||
-    (safeOptions.round && Math.round(abs / factors.m) >= (factors.h / factors.m))
+    (safeOptions.round && Math.round(abs / factors.m) >= factors.h / factors.m)
   ) {
     val = ms / factors.h;
     unit = "h";
   } else if (
     abs >= factors.m ||
-    (safeOptions.round && Math.round(abs / factors.s) >= (factors.m / factors.s))
+    (safeOptions.round && Math.round(abs / factors.s) >= factors.m / factors.s)
   ) {
     val = ms / factors.m;
     unit = "m";
   } else if (
     abs >= factors.s ||
-    (safeOptions.round && Math.round(abs / factors.ms) >= (factors.s / factors.ms))
+    (safeOptions.round &&
+      Math.round(abs / factors.ms) >= factors.s / factors.ms)
   ) {
     val = ms / factors.s;
     unit = "s";
@@ -177,7 +179,7 @@ export function humanize(ms, options) {
  */
 export function relative(time, options) {
   let timestamp;
-  
+
   // Check if it is a Date object, a string we need to parse, or just a normal number
   if (time instanceof Date) {
     timestamp = time.getTime();
@@ -213,8 +215,8 @@ export function relative(time, options) {
   // If the difference is a negative number, the time happened in the past
   if (diff < 0) {
     return `${timeString} ago`;
-  } 
-  
+  }
+
   // Otherwise, the time is going to happen in the future
   return `in ${timeString}`;
 }
